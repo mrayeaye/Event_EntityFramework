@@ -29,7 +29,7 @@ namespace Event_EntityFramework
         {
             BindingSource bi = new BindingSource();
             var query = from e in eventcontext.Events
-                        select new { e.Id, e.Name, e.Date };
+                        select new {e.Id,e.Name, e.Date };
             bi.DataSource = query.ToList();
             dataGridView1.DataSource = bi;
             dataGridView1.Refresh();
@@ -48,8 +48,16 @@ namespace Event_EntityFramework
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {
-
+        {           
+                    
+                    var E = eventcontext.Events.Find((int) dataGridView1.SelectedCells[0].Value);
+                    eventcontext.Events.Remove(E);
+                    eventcontext.SaveChanges();
+                    refreshData();
+                
+            
+            
+            
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -59,7 +67,7 @@ namespace Event_EntityFramework
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            this.Close();
         }
     }
 }
